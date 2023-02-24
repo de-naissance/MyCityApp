@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">My City</string>
+    <string name="my_city">Мой город</string>
+    <string name="category">Категория</string>
+    <string name="recommended_place">Рекомендуемое место</string>
+
+    <string name="back_button">Назад</string>
+
+    <string name="attractions">Достопримечательности</string>
+    <string name="entertainment">Развлечение</string>
+    <string name="cafes_and_restaurants">Кафе и рестораны</string>
+    <string name="place_for_walking">Места для прогулок</string>
+
+    <!--Категории: Достопримечательности-->
+    <string name="fountain_seven_girls">Фонтан Семь девушек</string>
+    <string name="monument_to_zagir_ismagilov">Памятник Загиру Исмагилову</string>
+    <string name="national_museum_rb">Национальный музей РБ</string>
+
+    <string name="aksakov_Garden">Сад культуры и отдыха им. Аксакова</string>
+
+</resources>
