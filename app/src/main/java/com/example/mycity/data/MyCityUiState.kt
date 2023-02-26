@@ -1,11 +1,17 @@
 package com.example.mycity.data
 
+import com.example.mycity.R
+
 /**
  * Класс данных, представляющий текущее состояние пользовательского интерфейса
  * */
 data class MyCityUiState(
     /** Отображает текущее название страницы */
-    val nameTitle: Int = 0,
+    var nameTitle: Map<String, Int?> = mapOf(
+        Pair("main_screen", R.string.app_name),
+        Pair("subcategories", null),
+        Pair("recommended_place", null)
+    ),
     /**  */
     val mainCategories: List<MainCategories> = emptyList(),
 

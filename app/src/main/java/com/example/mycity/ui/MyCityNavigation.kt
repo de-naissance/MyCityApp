@@ -4,6 +4,8 @@ package com.example.mycity.ui
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavArgument
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -12,8 +14,8 @@ import androidx.navigation.compose.rememberNavController
 fun Navigation(
     myCityViewModel: MyCityViewModel,
     modifier: Modifier = Modifier,
+    navController: NavHostController
 ) {
-    val navController = rememberNavController()
     val myCityUiState = myCityViewModel.uiState.collectAsState().value
 
     NavHost(
@@ -21,7 +23,9 @@ fun Navigation(
         startDestination = NavRoute.MainScreen.route,
         modifier = modifier
         ) {
-        composable(route = NavRoute.MainScreen.route) {
+        composable(
+            route = NavRoute.MainScreen.route
+        ) {
             SelectMainCategoriesScreen(
                 myCityViewModel = myCityViewModel,
                 option = myCityUiState.mainCategories,

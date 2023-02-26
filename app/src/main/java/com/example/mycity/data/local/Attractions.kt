@@ -1,7 +1,6 @@
 package com.example.mycity.data.local
 
 import com.example.mycity.R
-import com.example.mycity.data.MainCategories
 import com.example.mycity.data.Subcategories
 
 object Attractions {

@@ -36,7 +36,9 @@ fun MyCityBar(
         modifier = modifier,
         navigationIcon = {
             if (canNavigationBack) {
-                IconButton(onClick = navigateUp) {
+                IconButton(
+                    onClick = navigateUp
+                ) {
                     Icon(
                         imageVector = Icons.Filled.ArrowBack, // Как сделать закруглённые
                         contentDescription = stringResource(id = R.string.back_button)
@@ -52,25 +54,32 @@ fun MyCityBar(
 fun MyCityApp(
     myCityViewModel: MyCityViewModel,
     modifier: Modifier = Modifier,
+    navController: NavHostController = rememberNavController(),
     windowSize: WindowSizeClass
 ) {
 
     val uiState = myCityViewModel.uiState.collectAsState().value
+    val backStackEntry by navController.currentBackStackEntryAsState()
+    val currentScreen = backStackEntry?.destination?.route ?: "main_screen"
+
     // Эта часть для динамического размера
     val navigationType: ReplyNavigationType
     val contentType: ReplyContentType
     Scaffold(
         topBar = {
             MyCityBar(
-                currentScreen = uiState.nameTitle,
+                currentScreen = uiState.nameTitle[currentScreen]!!,
                 canNavigationBack = navController.previousBackStackEntry != null,
-                navigateUp = { navController.navigateUp() }
+                navigateUp = {
+                    navController.navigateUp()
+                }
             )
         },
         content = { innerPadding ->
             Navigation(
                 myCityViewModel = myCityViewModel,
-                modifier = modifier.padding(innerPadding)
+                modifier = modifier.padding(innerPadding),
+                navController = navController
             )
         }
     )

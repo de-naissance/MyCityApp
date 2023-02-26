@@ -1,5 +1,6 @@
 package com.example.mycity.ui
 
+import android.icu.text.CaseMap
 import androidx.lifecycle.ViewModel
 import com.example.mycity.R
 import com.example.mycity.data.MyCityUiState
@@ -25,7 +26,6 @@ class MyCityViewModel: ViewModel() {
     private fun initializeUIState() {
         _uiState.value =
             MyCityUiState(
-                nameTitle = R.string.app_name,
                 mainCategories = categories
             )
     }
@@ -39,9 +39,8 @@ class MyCityViewModel: ViewModel() {
     ) {
         _uiState.update {
             it.copy(
-                nameTitle = nameTitle,
                 selectedSubcategories = subcategories,
-
+                nameTitle = it.nameTitle.plus(Pair("subcategories", nameTitle))
             )
         }
     }
@@ -53,8 +52,8 @@ class MyCityViewModel: ViewModel() {
     fun resetSubcategories() {
         _uiState.update {
             it.copy(
-                nameTitle = R.string.app_name,
-                selectedSubcategories = emptyList()
+                selectedSubcategories = emptyList(),
+                nameTitle = it.nameTitle.plus(Pair("subcategories", null))
             )
         }
     }
@@ -65,7 +64,8 @@ class MyCityViewModel: ViewModel() {
     fun resetSelectedPlace() {
         _uiState.update {
             it.copy(
-                selectedPlace = false
+                selectedPlace = false,
+                nameTitle = it.nameTitle.plus(Pair("recommended_place", null))
             )
         }
     }
