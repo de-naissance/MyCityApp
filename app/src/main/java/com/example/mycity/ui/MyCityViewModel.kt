@@ -1,9 +1,8 @@
 package com.example.mycity.ui
 
-import android.icu.text.CaseMap
 import androidx.lifecycle.ViewModel
-import com.example.mycity.R
 import com.example.mycity.data.MyCityUiState
+import com.example.mycity.data.RecommendedPlace
 import com.example.mycity.data.Subcategories
 import com.example.mycity.data.local.HomeScreenCategories.categories
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,13 +33,24 @@ class MyCityViewModel: ViewModel() {
      *  Обновляем выбранную категорию
      * */
     fun updateSelectedSubcategories(
-        nameTitle: Int,
+        nameSelectedTitle: Int,
         subcategories: List<Subcategories>
     ) {
         _uiState.update {
             it.copy(
                 selectedSubcategories = subcategories,
-                nameTitle = it.nameTitle.plus(Pair("subcategories", nameTitle))
+                nameTitle = it.nameTitle.plus(Pair("subcategories", nameSelectedTitle))
+            )
+        }
+    }
+
+    fun updateRecommendedPlace(
+        place: RecommendedPlace
+    ) {
+        _uiState.update {
+            it.copy(
+                selectedPlace = place,
+                nameTitle = it.nameTitle.plus(Pair("recommended_place", place.nameCategories))
             )
         }
     }
@@ -64,7 +74,7 @@ class MyCityViewModel: ViewModel() {
     fun resetSelectedPlace() {
         _uiState.update {
             it.copy(
-                selectedPlace = false,
+                selectedPlace = null,
                 nameTitle = it.nameTitle.plus(Pair("recommended_place", null))
             )
         }

@@ -1,12 +1,8 @@
 package com.example.mycity.ui
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -33,15 +29,20 @@ fun SelectMainCategoriesScreen(
                     onClick = {
                         onNextCategoriesClicked()
                         myCityViewModel.updateSelectedSubcategories(
-                            nameTitle = item.nameCategories,
+                            nameSelectedTitle = item.nameCategories,
                             subcategories = item.subcategories
                         )
-                              },
+                    },
                     contentPadding = PaddingValues(
                         horizontal = 20.dp,
                         vertical = 12.dp
                     ),
-                    modifier = modifier.fillMaxWidth(),
+                    modifier = modifier
+                        .fillMaxWidth(),
+                    colors = ButtonDefaults.filledTonalButtonColors(
+                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                    )
                 ) {
                     Icon(
                         imageVector = item.icon,
@@ -49,7 +50,10 @@ fun SelectMainCategoriesScreen(
                         modifier = Modifier.size(ButtonDefaults.IconSize)
                     )
                     Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
-                    Text(stringResource(item.nameCategories))
+                    Text(
+                        stringResource(item.nameCategories),
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
                     Spacer(modifier = modifier.weight(1f))
                 }
             }

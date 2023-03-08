@@ -1,10 +1,7 @@
 package com.example.mycity.ui
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -21,6 +18,7 @@ import com.example.mycity.data.local.HomeScreenCategories.categories
 
 @Composable
 fun SelectSubcategoriesScreen(
+    myCityViewModel: MyCityViewModel,
     option: List<Subcategories>,
     onSelectionCategories: (String) -> Unit = {},
     onNextCategoriesClicked: () -> Unit = {},
@@ -45,14 +43,26 @@ fun SelectSubcategoriesScreen(
                 horizontalArrangement =  Arrangement.Start
             ) {
                 Button(
-                    onClick = { onNextCategoriesClicked },
+                    onClick = {
+                        onNextCategoriesClicked()
+                        myCityViewModel.updateRecommendedPlace(
+                            place = item.recommendedPlace
+                        )
+                              },
                     contentPadding = PaddingValues(
                         horizontal = 20.dp,
                         vertical = 12.dp
                     ),
                     modifier = modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.filledTonalButtonColors(
+                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                    )
                 ) {
-                    Text(stringResource(item.nameCategories))
+                    Text(
+                        stringResource(item.nameCategories),
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
                     Spacer(modifier = modifier.weight(1f))
                 }
             }
@@ -60,8 +70,8 @@ fun SelectSubcategoriesScreen(
     }
 }
 
-@Preview(showBackground = true)
+/*@Preview(showBackground = true)
 @Composable
 fun SelectSubcategoriesPreview() {
     SelectSubcategoriesScreen(option = attractions)
-}
+}*/

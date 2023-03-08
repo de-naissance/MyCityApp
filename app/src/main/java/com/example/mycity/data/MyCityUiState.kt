@@ -17,6 +17,6 @@ data class MyCityUiState(
 
     val selectedSubcategories: List<Subcategories> = emptyList(),
     /** Тут будет структура рекомендованного места*/
-    val selectedPlace: Boolean = false,
+    val selectedPlace: RecommendedPlace? = null,
 
     )

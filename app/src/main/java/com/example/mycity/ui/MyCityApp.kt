@@ -1,7 +1,7 @@
 package com.example.mycity.ui
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
@@ -11,10 +11,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.mycity.R
+import com.example.mycity.ui.theme.MyCityTheme
 import com.example.mycity.utils.ReplyContentType
 import com.example.mycity.utils.ReplyNavigationType
 
@@ -24,6 +26,7 @@ import com.example.mycity.utils.ReplyNavigationType
  * если возможна обратная навигация.
  */
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyCityBar(
     currentScreen: Int, // Сюда, возможно, я буду передавать из ViewModel название топ бара
@@ -32,16 +35,29 @@ fun MyCityBar(
     modifier: Modifier = Modifier
 ) {
     TopAppBar(
-        title = { Text(text = stringResource(id = currentScreen)) },
+        title = { Text(
+            text = stringResource(id = currentScreen),
+            style = MaterialTheme.typography.displayMedium
+        ) },
         modifier = modifier,
+        colors = TopAppBarDefaults.smallTopAppBarColors(
+            containerColor = MaterialTheme.colorScheme.outlineVariant
+        ),
         navigationIcon = {
             if (canNavigationBack) {
                 IconButton(
-                    onClick = navigateUp
+                    onClick = navigateUp,
+                    colors = IconButtonDefaults.filledIconButtonColors(
+                        containerColor = MaterialTheme.colorScheme.outlineVariant,
+                        contentColor = MaterialTheme.colorScheme.onSurface
+                    ),
+                    modifier = modifier
+
                 ) {
                     Icon(
                         imageVector = Icons.Filled.ArrowBack, // Как сделать закруглённые
-                        contentDescription = stringResource(id = R.string.back_button)
+                        contentDescription = stringResource(id = R.string.back_button),
+
                     )
                 }
             }
@@ -50,6 +66,7 @@ fun MyCityBar(
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyCityApp(
     myCityViewModel: MyCityViewModel,
@@ -84,4 +101,16 @@ fun MyCityApp(
         }
     )
 
+}
+
+@Preview(showBackground = true)
+@Composable
+fun TopBarPreview() {
+    MyCityTheme(darkTheme = false) {
+        MyCityBar(
+            R.string.attractions,
+            canNavigationBack = true,
+            navigateUp = { }
+        )
+    }
 }

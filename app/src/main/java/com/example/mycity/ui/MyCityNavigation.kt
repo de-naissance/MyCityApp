@@ -38,6 +38,7 @@ fun Navigation(
             route = NavRoute.Subcategories.route,
         ) {
             SelectSubcategoriesScreen(
+                myCityViewModel = myCityViewModel,
                 option = myCityUiState.selectedSubcategories,
                 onNextCategoriesClicked = {
                     navController.navigate(NavRoute.RecommendedPlace.route)
@@ -45,7 +46,9 @@ fun Navigation(
             )
         }
         composable(route = NavRoute.RecommendedPlace.route) {
-
+            RecommendedPlaceScreen(
+                recommendedPlace = myCityUiState.selectedPlace!!
+            )
         }
     }
 }
